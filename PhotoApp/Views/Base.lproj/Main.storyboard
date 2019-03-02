@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Photo Album-->
+        <!--Photos-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="PhotoAlbumViewController" customModule="PhotoApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -51,7 +51,7 @@
                                         <size key="customSize" width="105" height="105"/>
                                         <connections>
                                             <outlet property="imageView" destination="SdL-eQ-Gtq" id="qCD-lP-Uel"/>
-                                            <segue destination="fxr-1k-3Tg" kind="show" id="Uyf-hW-WSc"/>
+                                            <segue destination="fxr-1k-3Tg" kind="show" identifier="viewLargePhoto" id="Uyf-hW-WSc"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -76,7 +76,7 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Photo Album" id="mNd-La-eG4">
+                    <navigationItem key="navigationItem" title="Photos" id="mNd-La-eG4">
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="Kz2-l4-2SL">
                             <connections>
                                 <action selector="camera:" destination="BYZ-38-t0r" id="DJ2-M2-mkP"/>
@@ -93,7 +93,7 @@
             </objects>
             <point key="canvasLocation" x="511.19999999999999" y="-564.46776611694156"/>
         </scene>
-        <!--Full-Size Image-->
+        <!--April 20, 2015-->
         <scene sceneID="2Bq-38-ZhN">
             <objects>
                 <viewController id="fxr-1k-3Tg" customClass="ViewPhotoViewController" customModule="PhotoApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -127,16 +127,9 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Full-Size Image" id="avS-1a-mmb">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="K5j-W3-OEE">
-                            <connections>
-                                <action selector="cancel:" destination="fxr-1k-3Tg" id="oIr-Z4-iZr"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="April 20, 2015" id="avS-1a-mmb"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="cancelButton" destination="K5j-W3-OEE" id="Zad-E1-5ph"/>
                         <outlet property="exportButton" destination="6uv-9u-onv" id="yKi-p8-uAw"/>
                         <outlet property="photoImageView" destination="1Jq-tR-Bvb" id="1v6-6i-ufL"/>
                         <outlet property="trashButton" destination="zWa-He-28h" id="6er-JY-Hcl"/>

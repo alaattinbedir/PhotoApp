@@ -10,10 +10,10 @@ import UIKit
 import Photos
 import ObjectMapper
 import SnapKit
-
+import SVProgressHUD
 
 let reuseIdentifier = "PhotoCell"
-let albumName = "PhotoApp Folder"
+let albumName = "PhotoApp"
 
 class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -92,7 +92,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
-    // MARK - Lifecycle Methods
+    //MARK - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -129,6 +129,9 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     fileprivate func loadPhotos() {
+        
+        SVProgressHUD.show()
+        
         // Get size of the collectionView cell for thumbnail image
         if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout{
             let cellSize = layout.itemSize
@@ -148,6 +151,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
             }
         }
         self.collectionView.reloadData()
+        SVProgressHUD.dismiss()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -170,7 +174,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
-    // MARK - UICollectionView Datasource Methods
+    //MARK - UICollectionView Datasource Methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var count: Int = 0
         if(self.photosAsset != nil){
@@ -196,7 +200,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         return cell
     }
     
-    // MARK - UICollectionView Delegate Methods
+    //MARK - UICollectionView Delegate Methods
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat{
         return 4
     }
@@ -204,7 +208,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         return 1
     }
     
-    // MARK - UICollectionView Delegate Methods
+    //MARK - UICollectionView Delegate Methods
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]){
         NSLog("in didFinishPickingMediaWithInfo")
         if let image: UIImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {

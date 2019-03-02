@@ -73,13 +73,11 @@ class ViewPhotoViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    @IBOutlet var imgView : UIImageView!
-    
     // MARK - Life Cycles Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.navigationItem.leftItemsSupplementBackButton = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,7 +100,7 @@ class ViewPhotoViewController: UIViewController {
         let imageManager = PHImageManager.default()
         imageManager.requestImage(for: self.photosAsset[self.index], targetSize: targetSize, contentMode: .aspectFit, options: nil, resultHandler: {
             (result, info)->Void in
-            self.imgView.image = result
+            self.photoImageView.image = result
         })
     }
     
