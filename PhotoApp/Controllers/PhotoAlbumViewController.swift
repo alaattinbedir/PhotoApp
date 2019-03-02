@@ -8,6 +8,9 @@
 
 import UIKit
 import Photos
+import ObjectMapper
+import SnapKit
+
 
 let reuseIdentifier = "PhotoCell"
 let albumName = "PhotoApp Folder"
@@ -18,6 +21,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     var assetCollection: PHAssetCollection = PHAssetCollection()
     var photosAsset: PHFetchResult<PHAsset>!
     var assetThumbnailSize:CGSize!
+    var imageArray = [UIImage]()
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var noPhotosLabel: UILabel!
@@ -49,6 +53,46 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         self.present(picker, animated: true, completion: nil)
     }
     
+    //MARK: grab photos
+    func grabPhotos(){
+        imageArray = []
+        
+        DispatchQueue.global(qos: .background).async {
+            print("This is run on the background queue")
+            let imgManager=PHImageManager.default()
+            
+            let requestOptions=PHImageRequestOptions()
+            requestOptions.isSynchronous=true
+            requestOptions.deliveryMode = .highQualityFormat
+            
+            let fetchOptions=PHFetchOptions()
+            fetchOptions.sortDescriptors=[NSSortDescriptor(key:"creationDate", ascending: false)]
+            
+            let fetchResult: PHFetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+            print(fetchResult)
+            print(fetchResult.count)
+            if fetchResult.count > 0 {
+                for i in 0..<fetchResult.count{
+                    imgManager.requestImage(for: fetchResult.object(at: i) as PHAsset, targetSize: CGSize(width:500, height: 500),contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, error) in
+                        
+                        if let image = image {
+                            self.imageArray.append(image)
+                        }
+                    })
+                }
+            } else {
+                print("You got no photos.")
+            }
+            print("imageArray count: \(self.imageArray.count)")
+            
+            DispatchQueue.main.async {
+                print("This is run on the main queue, after the previous code in outer block")
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    // MARK - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,8 +128,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        
+    fileprivate func loadPhotos() {
         // Get size of the collectionView cell for thumbnail image
         if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout{
             let cellSize = layout.itemSize
@@ -105,6 +148,12 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
             }
         }
         self.collectionView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        loadPhotos()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -185,4 +234,8 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
 }
+
+
+
+
 
