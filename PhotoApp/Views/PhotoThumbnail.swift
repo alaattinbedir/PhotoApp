@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoThumbnailCollectionViewCell: UICollectionViewCell {
+class PhotoThumbnail: UICollectionViewCell {
     
     @IBOutlet var imageView : UIImageView!
     
