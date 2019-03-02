@@ -16,6 +16,7 @@
 		D8B63AAC222AB79700D54F2F /* PhotoAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B63AAB222AB79700D54F2F /* PhotoAppTests.swift */; };
 		D8B63AB7222AB79700D54F2F /* PhotoAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B63AB6222AB79700D54F2F /* PhotoAppUITests.swift */; };
 		D8B63AC5222ABE1500D54F2F /* ViewPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B63AC4222ABE1500D54F2F /* ViewPhotoViewController.swift */; };
+		D8B63AC7222ACDAF00D54F2F /* PhotoThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B63AC6222ACDAF00D54F2F /* PhotoThumbnailCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		D8B63AB6222AB79700D54F2F /* PhotoAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAppUITests.swift; sourceTree = "<group>"; };
 		D8B63AB8222AB79700D54F2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8B63AC4222ABE1500D54F2F /* ViewPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPhotoViewController.swift; sourceTree = "<group>"; };
+		D8B63AC6222ACDAF00D54F2F /* PhotoThumbnailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoThumbnailCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				D8B63A9F222AB79700D54F2F /* LaunchScreen.storyboard */,
 				D8B63AA2222AB79700D54F2F /* Info.plist */,
 				D8B63A9A222AB79400D54F2F /* PhotoApp.xcdatamodeld */,
+				D8B63AC6222ACDAF00D54F2F /* PhotoThumbnailCollectionViewCell.swift */,
 			);
 			path = PhotoApp;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8B63AC7222ACDAF00D54F2F /* PhotoThumbnailCollectionViewCell.swift in Sources */,
 				D8B63AC5222ABE1500D54F2F /* ViewPhotoViewController.swift in Sources */,
 				D8B63A96222AB79400D54F2F /* PhotoAlbumViewController.swift in Sources */,
 				D8B63A94222AB79400D54F2F /* AppDelegate.swift in Sources */,
