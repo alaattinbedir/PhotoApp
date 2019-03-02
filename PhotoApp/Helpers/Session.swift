@@ -1,9 +1,9 @@
 //
 //  Session.swift
-//  EventViewer
+//  PhotoApp
 //
-//  Created by Alaattin Bedir on 9.08.2018.
-//  Copyright © 2018 Magiclamp Games. All rights reserved.
+//  Created by Alaattin Bedir on 2.03.2019.
+//  Copyright © 2019 Alaattin Bedir. All rights reserved.
 //
 
 class Session {
