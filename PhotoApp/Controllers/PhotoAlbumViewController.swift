@@ -63,38 +63,7 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
         
         self.prepareCollectionView()
         self.fetchImagesFromGallery(collection: self.selectedCollection)
-        
-        //Check if the folder exists, if not, create it
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "title = %@", albumName ?? "PhotoApp")
-        let collection:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
-
-        if let first_Obj:AnyObject = collection.firstObject{
-            //found the album
-            self.albumFound = true
-            self.albums = first_Obj as! PHAssetCollection
-        }else{
-            //Album placeholder for the asset collection, used to reference collection in completion handler
-            var albumPlaceholder:PHObjectPlaceholder!
-            //create the folder
-            NSLog("\nFolder \"%@\" does not exist\nCreating now...", albumName ?? "PhptpApp")
-            PHPhotoLibrary.shared().performChanges({
-                let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: self.albumName ?? "PhotoApp")
-                albumPlaceholder = request.placeholderForCreatedAssetCollection
-            },
-                                                   completionHandler: {(success:Bool, error:Error?) in
-                                                    if(success){
-                                                        print("Successfully created folder")
-                                                        self.albumFound = true
-                                                        let collection = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumPlaceholder.localIdentifier], options: nil)
-                                                        self.albums = collection.firstObject!
-                                                    }else{
-                                                        print("Error creating folder")
-                                                        self.albumFound = false
-                                                    }
-            })
-        }
-        
+        self.createAlbumFolder()
     }
 
     private func prepareCollectionView() {
@@ -115,6 +84,39 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
             self.collectionView.reloadData()
         }
     }
+    
+    private func createAlbumFolder() {
+        //Check if the folder exists, if not, create it
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.predicate = NSPredicate(format: "title = %@", albumName ?? "Photo App")
+        let collection:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
+        
+        if let first_Obj:AnyObject = collection.firstObject{
+            //found the album
+            self.albumFound = true
+            self.albums = first_Obj as! PHAssetCollection
+        }else{
+            //Album placeholder for the asset collection, used to reference collection in completion handler
+            var albumPlaceholder:PHObjectPlaceholder!
+            //create the folder
+            PHPhotoLibrary.shared().performChanges({
+                let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: self.albumName ?? "Photo App")
+                albumPlaceholder = request.placeholderForCreatedAssetCollection
+            },
+                                                   completionHandler: {(success:Bool, error:Error?) in
+                                                    if(success){
+                                                        print("Successfully created folder")
+                                                        self.albumFound = true
+                                                        let collection = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumPlaceholder.localIdentifier], options: nil)
+                                                        self.albums = collection.firstObject!
+                                                    }else{
+                                                        print("Error creating folder")
+                                                        self.albumFound = false
+                                                    }
+            })
+        }
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
