@@ -104,7 +104,6 @@ class ViewPhotoViewController: UIViewController {
         })
     }
     
-    
 }
 
 
