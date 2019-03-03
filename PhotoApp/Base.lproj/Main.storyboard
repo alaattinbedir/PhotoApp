@@ -147,13 +147,13 @@
         <!--Albums-->
         <scene sceneID="kF2-Tf-ER1">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="se7-OK-XlU" customClass="AlbumsViewController" customModule="PhotoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="se7-OK-XlU" customClass="AlbumsViewController" customModule="PhotoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aWL-rV-ykV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G9a-p5-eGQ">
-                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
+                                <rect key="frame" x="0.0" y="116" width="375" height="507"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="o1X-eo-nu7">
                                     <size key="itemSize" width="50" height="50"/>

@@ -19,6 +19,12 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     func setAlbum(_ album: PHAssetCollection) {
         albumNameLabel.text = album.localizedTitle!
         albumImageView.image = album.getCoverImgWithSize((albumImageView?.frame.size ?? nil)!)
+        
+        albumImageView.layer.masksToBounds = false
+        albumImageView.layer.borderColor = UIColor.black.cgColor
+        albumImageView.layer.cornerRadius = 6
+        albumImageView.clipsToBounds = true
+        
     }
     
 }

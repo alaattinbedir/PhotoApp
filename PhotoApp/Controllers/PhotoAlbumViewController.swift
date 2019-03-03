@@ -64,43 +64,43 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     // MARK: - Private methods
-    private func grabPhotos(){
-        imageArray = []
-        
-        DispatchQueue.global(qos: .background).async {
-            print("This is run on the background queue")
-            let imgManager=PHImageManager.default()
-            
-            let requestOptions=PHImageRequestOptions()
-            requestOptions.isSynchronous=true
-            requestOptions.deliveryMode = .highQualityFormat
-            
-            let fetchOptions=PHFetchOptions()
-            fetchOptions.sortDescriptors=[NSSortDescriptor(key:"creationDate", ascending: false)]
-            
-            let fetchResult: PHFetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-            print(fetchResult)
-            print(fetchResult.count)
-            if fetchResult.count > 0 {
-                for i in 0..<fetchResult.count{
-                    imgManager.requestImage(for: fetchResult.object(at: i) as PHAsset, targetSize: CGSize(width:500, height: 500),contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, error) in
-                        
-                        if let image = image {
-                            self.imageArray.append(image)
-                        }
-                    })
-                }
-            } else {
-                print("You got no photos.")
-            }
-            print("imageArray count: \(self.imageArray.count)")
-            
-            DispatchQueue.main.async {
-                print("This is run on the main queue, after the previous code in outer block")
-                self.collectionView.reloadData()
-            }
-        }
-    }
+//    private func grabPhotos(){
+//        imageArray = []
+//
+//        DispatchQueue.global(qos: .background).async {
+//            print("This is run on the background queue")
+//            let imgManager=PHImageManager.default()
+//
+//            let requestOptions=PHImageRequestOptions()
+//            requestOptions.isSynchronous=true
+//            requestOptions.deliveryMode = .highQualityFormat
+//
+//            let fetchOptions=PHFetchOptions()
+//            fetchOptions.sortDescriptors=[NSSortDescriptor(key:"creationDate", ascending: false)]
+//
+//            let fetchResult: PHFetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+//            print(fetchResult)
+//            print(fetchResult.count)
+//            if fetchResult.count > 0 {
+//                for i in 0..<fetchResult.count{
+//                    imgManager.requestImage(for: fetchResult.object(at: i) as PHAsset, targetSize: CGSize(width:500, height: 500),contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, error) in
+//
+//                        if let image = image {
+//                            self.imageArray.append(image)
+//                        }
+//                    })
+//                }
+//            } else {
+//                print("You got no photos.")
+//            }
+//            print("imageArray count: \(self.imageArray.count)")
+//
+//            DispatchQueue.main.async {
+//                print("This is run on the main queue, after the previous code in outer block")
+//                self.collectionView.reloadData()
+//            }
+//        }
+//    }
     
     // MARK: - Controller lifecycle
     override func viewDidLoad() {
@@ -170,30 +170,30 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
         }
     }
     
-    fileprivate func loadPhotos() {
-        
-        SVProgressHUD.show()
-        
-        // Get size of the collectionView cell for thumbnail image
-        if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout{
-            let cellSize = layout.itemSize
-            self.assetThumbnailSize = CGSize(width: cellSize.width, height: cellSize.height)
-        }
-        
-        //fetch the photos from collection
-        self.navigationController?.hidesBarsOnTap = false   //!! Use optional chaining
-        self.photosAsset = PHAsset.fetchAssets(in: self.assetCollection, options: nil)
-        
-        if let photoCnt = self.photosAsset?.count{
-            if(photoCnt == 0){
-//                self.noPhotosLabel.isHidden = false
-            }else{
-//                self.noPhotosLabel.isHidden = true
-            }
-        }
-        self.collectionView.reloadData()
-        SVProgressHUD.dismiss()
-    }
+//    fileprivate func loadPhotos() {
+//        
+//        SVProgressHUD.show()
+//        
+//        // Get size of the collectionView cell for thumbnail image
+//        if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout{
+//            let cellSize = layout.itemSize
+//            self.assetThumbnailSize = CGSize(width: cellSize.width, height: cellSize.height)
+//        }
+//        
+//        //fetch the photos from collection
+//        self.navigationController?.hidesBarsOnTap = false   //!! Use optional chaining
+//        self.photosAsset = PHAsset.fetchAssets(in: self.assetCollection, options: nil)
+//        
+//        if let photoCnt = self.photosAsset?.count{
+//            if(photoCnt == 0){
+////                self.noPhotosLabel.isHidden = false
+//            }else{
+////                self.noPhotosLabel.isHidden = true
+//            }
+//        }
+//        self.collectionView.reloadData()
+//        SVProgressHUD.dismiss()
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -207,8 +207,8 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
                 if let cell = sender as? UICollectionViewCell{
                     if let indexPath: IndexPath = self.collectionView.indexPath(for: cell){
                         controller.index = indexPath.item
-                        controller.photosAsset = self.photosAsset
-                        controller.assetCollection = self.assetCollection
+                        controller.photosAsset = self.photos
+                        controller.assetCollection = self.selectedCollection
                     }
                 }
             }
@@ -337,6 +337,8 @@ extension PhotoAlbumViewController: UICollectionViewDelegateFlowLayout {
         photoViewController.title = albums.localizedTitle
         photoViewController.index = indexPath.row
         photoViewController.photosAsset = self.photos
+        photoViewController.assetCollection = self.selectedCollection
+        
         self.navigationController?.pushViewController(photoViewController, animated: true)
     }
     
