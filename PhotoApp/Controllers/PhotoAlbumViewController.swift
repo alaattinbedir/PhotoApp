@@ -18,13 +18,13 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
     
     // MARK: - Vars & Lets
     private var albumFound : Bool = false
-    private var assetCollection: PHAssetCollection = PHAssetCollection()
-    private var photosAsset: PHFetchResult<PHAsset>!
+//    private var assetCollection: PHAssetCollection = PHAssetCollection()
+//    private var photosAsset: PHFetchResult<PHAsset>!
     private var assetThumbnailSize:CGSize!
-    private var imageArray = [UIImage]()
+//    private var imageArray = [UIImage]()
     var albums: PHAssetCollection = PHAssetCollection()
     var albumName: String?
-    private let numberOfCellsPerRow: CGFloat = 4
+//    private let numberOfCellsPerRow: CGFloat = 4
     var selectedCollection: PHAssetCollection?
     private var photos: PHFetchResult<PHAsset>!
     private var numbeOfItemsInRow = 4
@@ -65,16 +65,9 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         self.prepareCollectionView()
         self.fetchImagesFromGallery(collection: self.selectedCollection)
         
-        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-            let horizontalSpacing = flowLayout.scrollDirection == .vertical ? flowLayout.minimumInteritemSpacing : flowLayout.minimumLineSpacing
-            let cellWidth = (view.frame.width - max(0, numberOfCellsPerRow - 1)*horizontalSpacing)/numberOfCellsPerRow
-            flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
-        }
-
         //Check if the folder exists, if not, create it
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "title = %@", albumName ?? "PhotoApp")
@@ -83,7 +76,7 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
         if let first_Obj:AnyObject = collection.firstObject{
             //found the album
             self.albumFound = true
-            self.assetCollection = first_Obj as! PHAssetCollection
+            self.albums = first_Obj as! PHAssetCollection
         }else{
             //Album placeholder for the asset collection, used to reference collection in completion handler
             var albumPlaceholder:PHObjectPlaceholder!
@@ -98,7 +91,7 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
                                                         print("Successfully created folder")
                                                         self.albumFound = true
                                                         let collection = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumPlaceholder.localIdentifier], options: nil)
-                                                        self.assetCollection = collection.firstObject!
+                                                        self.albums = collection.firstObject!
                                                     }else{
                                                         print("Error creating folder")
                                                         self.albumFound = false
@@ -163,7 +156,7 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
             PHPhotoLibrary.shared().performChanges({
                 let createAssetRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
                 let assetPlaceholder = createAssetRequest.placeholderForCreatedAsset
-                if let albumChangeRequest = PHAssetCollectionChangeRequest(for: self.assetCollection, assets: self.photosAsset) {
+                if let albumChangeRequest = PHAssetCollectionChangeRequest(for: self.albums, assets: self.photos) {
                     albumChangeRequest.addAssets([assetPlaceholder!] as NSArray)
                 }
             }, completionHandler: {(success, error)in
