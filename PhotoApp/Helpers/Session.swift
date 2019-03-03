@@ -8,7 +8,7 @@
 
 class Session {
     
-    var Authorization: String? = ""
+    var Authorization: String?
     
     func getHeaders() -> [String: String] {
         let headers = [
