@@ -1,5 +1,5 @@
 //
-//  APPhoteoCollectionViewCell.swift
+//  APPhotoCollectionViewCell.swift
 //  CustomGallery
 //
 //  Created by Pavle Pesic on 7/14/18.
@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class PhoteoCollectionViewCell: UICollectionViewCell {
+class PhotoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Outelts
     

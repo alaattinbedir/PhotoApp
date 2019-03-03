@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PhotoApp/Controllers/PhotoAlbumViewController.swift"
-            timestampString = "573296670.283183"
+            timestampString = "573302999.437539"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PhotoApp/Controllers/PhotoAlbumViewController.swift"
-            timestampString = "573296670.283332"
+            timestampString = "573302999.4377151"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "loadPhotos()"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PhotoApp/Controllers/PhotoAlbumViewController.swift"
-            timestampString = "573296670.283435"
+            timestampString = "573302999.437791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,29 +58,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PhotoApp/Controllers/PhotoAlbumViewController.swift"
-            timestampString = "573296670.2835211"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PhotoApp/Controllers/PhotoAlbumViewController.swift"
-            timestampString = "573296670.283608"
+            timestampString = "573302999.437856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "130"
             endingLineNumber = "130"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PhotoApp.PhotoAlbumViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "PhotoApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/melikesardogan/Documents/Projects/PhotoApp/PhotoApp/Controllers/PhotoAlbumViewController.swift"
+                  timestampString = "573303000.565935"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "2148">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in PhotoApp.PhotoAlbumViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "PhotoApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/melikesardogan/Documents/Projects/PhotoApp/PhotoApp/Controllers/PhotoAlbumViewController.swift"
+                  timestampString = "573303000.568072"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PhotoApp/Controllers/PhotoAlbumViewController.swift"
-            timestampString = "573296670.28369"
+            timestampString = "573302999.4379179"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PhotoApp/Controllers/PhotoAlbumViewController.swift"
-            timestampString = "573296670.28377"
+            timestampString = "573302999.437981"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,13 +138,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PhotoApp/Controllers/PhotoAlbumViewController.swift"
-            timestampString = "573296670.28385"
+            timestampString = "573302999.43804"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
-            landmarkName = "collectionView(_:layout:insetForSectionAt:)"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PhotoApp/Controllers/PhotoAlbumViewController.swift"
+            timestampString = "573302999.438099"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "PhotoAlbumViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -144,6 +176,22 @@
             startingLineNumber = "44"
             endingLineNumber = "44"
             landmarkName = "applicationWillTerminate(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PhotoApp/Controllers/AlbumsViewController.swift"
+            timestampString = "573302999.4382139"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
