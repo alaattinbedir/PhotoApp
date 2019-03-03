@@ -333,10 +333,11 @@ extension PhotoAlbumViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let photosViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "PhotosViewController") as! PhotoViewController
-        photosViewController.title = album.localizedTitle
-        photosViewController.index = indexPath.row
-        self.navigationController?.pushViewController(photosViewController, animated: true)
+        let photoViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "PhotoViewController") as! PhotoViewController
+        photoViewController.title = albums.localizedTitle
+        photoViewController.index = indexPath.row
+        photoViewController.photosAsset = self.photos
+        self.navigationController?.pushViewController(photoViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
