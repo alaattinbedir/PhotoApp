@@ -10,6 +10,7 @@ import UIKit
 
 extension UIImageView {
     
+    // MARK: - Public methods  
     func setRounded(round: Float) {
         self.layer.cornerRadius = CGFloat(round)
         self.layer.masksToBounds = false
