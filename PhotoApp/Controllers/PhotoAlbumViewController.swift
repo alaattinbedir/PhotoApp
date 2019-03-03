@@ -20,6 +20,7 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
     public var albums: PHAssetCollection = PHAssetCollection()
     public var albumName: String?
     public var selectedCollection: PHAssetCollection?
+    
     private var albumFound : Bool = false
     private var assetThumbnailSize:CGSize!
     private var photos: PHFetchResult<PHAsset>!
@@ -27,7 +28,6 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
 
     // MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
-
     
     // MARK: - Actions
     @IBAction func camera(_ sender: Any) {
