@@ -17,15 +17,18 @@ let albumName = "PhotoApp"
 
 class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    //MARK: Properties
     var albumFound : Bool = false
     var assetCollection: PHAssetCollection = PHAssetCollection()
     var photosAsset: PHFetchResult<PHAsset>!
     var assetThumbnailSize:CGSize!
     var imageArray = [UIImage]()
 
+    //MARK: IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var noPhotosLabel: UILabel!
     
+    //MARK: IBActions
     @IBAction func camera(_ sender: Any) {
         if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera)){
             //load the camera interface
@@ -53,7 +56,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         self.present(picker, animated: true, completion: nil)
     }
     
-    //MARK: grab photos
+    //MARK: Grab photos
     func grabPhotos(){
         imageArray = []
         
@@ -92,7 +95,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
-    //MARK - Lifecycle Methods
+    //MARK: Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -174,7 +177,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
-    //MARK - UICollectionView Datasource Methods
+    //MARK: UICollectionView Datasource Methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var count: Int = 0
         if(self.photosAsset != nil){
@@ -200,7 +203,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         return cell
     }
     
-    //MARK - UICollectionView Delegate Methods
+    //MARK: UICollectionView Delegate Methods
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat{
         return 4
     }
@@ -208,7 +211,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         return 1
     }
     
-    //MARK - UICollectionView Delegate Methods
+    //MARK: UICollectionView Delegate Methods
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]){
         NSLog("in didFinishPickingMediaWithInfo")
         if let image: UIImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
@@ -233,6 +236,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
             })
         }
     }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
         picker.dismiss(animated: true, completion: nil)
     }
