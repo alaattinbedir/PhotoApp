@@ -15,21 +15,22 @@ import SVProgressHUD
 let reuseIdentifier = "PhotoCell"
 let albumName = "PhotoApp"
 
-class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    //MARK: Properties
+    // MARK: - Vars & Lets
     var albumFound : Bool = false
     var assetCollection: PHAssetCollection = PHAssetCollection()
     var photosAsset: PHFetchResult<PHAsset>!
     var assetThumbnailSize:CGSize!
     var imageArray = [UIImage]()
+    var albums: PHAssetCollection = PHAssetCollection()
     let numberOfCellsPerRow: CGFloat = 4
 
-    //MARK: IBOutlets
+    // MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var noPhotosLabel: UILabel!
     
-    //MARK: IBActions
+    // MARK: - Actions
     @IBAction func camera(_ sender: Any) {
         if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera)){
             //load the camera interface
@@ -57,8 +58,8 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         self.present(picker, animated: true, completion: nil)
     }
     
-    //MARK: Grab photos
-    func grabPhotos(){
+    // MARK: - Private methods
+    private func grabPhotos(){
         imageArray = []
         
         DispatchQueue.global(qos: .background).async {
@@ -96,7 +97,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
-    //MARK: Lifecycle Methods
+    // MARK: - Controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -137,6 +138,9 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
                                                     }
             })
         }
+        
+        self.grabPhotos()
+        
     }
 
     fileprivate func loadPhotos() {
@@ -167,7 +171,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        loadPhotos()
+//        loadPhotos()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -184,52 +188,11 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
-    //MARK: UICollectionView Datasource Methods
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var count: Int = 0
-        if(self.photosAsset != nil){
-            count = self.photosAsset.count
-        }
-        return count;
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.collectionView.collectionViewLayout.invalidateLayout()
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        let totalCellWidth = 80 * collectionView.numberOfItems(inSection: 0)
-        let totalSpacingWidth = 10 * (collectionView.numberOfItems(inSection: 0) - 1)
-        
-        let leftInset = (collectionView.layer.frame.size.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
-        let rightInset = leftInset
-        
-        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: PhotoThumbnail = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PhotoThumbnail
-        
-        //Modify the cell
-        let asset: PHAsset = self.photosAsset[indexPath.item]
-        
-        // Create options for retrieving image (Degrades quality if using .Fast)
-        //        let imageOptions = PHImageRequestOptions()
-        //        imageOptions.resizeMode = PHImageRequestOptionsResizeMode.Fast
-        PHImageManager.default().requestImage(for: asset, targetSize: self.assetThumbnailSize, contentMode: .aspectFill, options: nil, resultHandler: {(result, info)in
-            if let image = result {
-                cell.setThumbnailImage(image)
-            }
-        })
-        return cell
-    }
-    
-    //MARK: UICollectionView Delegate Methods
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat{
-        return 4
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat{
-        return 1
-    }
-    
     //MARK: UIImagePicker Delegate Methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -263,6 +226,71 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+// MARK: - Extensions
+// MARK: - UICollectionViewDataSource
+extension PhotoAlbumViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        var count: Int = 0
+        if(self.photosAsset != nil){
+            count = self.photosAsset.count
+        }
+        return count;
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        let totalCellWidth = 80 * collectionView.numberOfItems(inSection: 0)
+        let totalSpacingWidth = 10 * (collectionView.numberOfItems(inSection: 0) - 1)
+        
+        let leftInset = (collectionView.layer.frame.size.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
+        let rightInset = leftInset
+        
+        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
+        
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: PhotoThumbnail = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PhotoThumbnail
+        
+        //Modify the cell
+        let asset: PHAsset = self.photosAsset[indexPath.item]
+        
+        // Create options for retrieving image (Degrades quality if using .Fast)
+        //        let imageOptions = PHImageRequestOptions()
+        //        imageOptions.resizeMode = PHImageRequestOptionsResizeMode.Fast
+        PHImageManager.default().requestImage(for: asset, targetSize: self.assetThumbnailSize, contentMode: .aspectFill, options: nil, resultHandler: {(result, info)in
+            if let image = result {
+                cell.setThumbnailImage(image)
+            }
+        })
+        return cell
+    }
+    
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension PhotoAlbumViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.init(top: 20, left: 20, bottom: 20, right: 20)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (Int(UIScreen.main.bounds.size.width) - (numbeOfItemsInRow - 1) * 6 - 40) / numbeOfItemsInRow
+        return CGSize(width: width, height: width)
     }
     
 }
