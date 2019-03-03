@@ -118,7 +118,6 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

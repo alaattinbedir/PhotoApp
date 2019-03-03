@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import SVProgressHUD
 
 class AlbumsViewController: UIViewController {
 
@@ -48,6 +49,7 @@ class AlbumsViewController: UIViewController {
                 self.albums.append(collection)
             }
         })
+        
         self.collectionView.reloadData()
     }
     
