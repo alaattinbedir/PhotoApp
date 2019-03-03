@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class ViewPhotoViewController: UIViewController {
+class PhotoViewController: UIViewController {
     
     var assetCollection: PHAssetCollection!
     var photosAsset: PHFetchResult<PHAsset>!

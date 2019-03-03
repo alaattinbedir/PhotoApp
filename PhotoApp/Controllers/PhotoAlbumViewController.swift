@@ -116,10 +116,6 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
             flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         }
 
-
-
-
-
         //Check if the folder exists, if not, create it
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "title = %@", albumName ?? "PhotoApp")
@@ -151,7 +147,7 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
             })
         }
         
-        self.grabPhotos()
+//        self.grabPhotos()
         
     }
 
@@ -202,12 +198,12 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        loadPhotos()
+//        loadPhotos()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "viewLargePhoto"){
-            if let controller:ViewPhotoViewController = segue.destination as? ViewPhotoViewController{
+            if let controller:PhotoViewController = segue.destination as? PhotoViewController{
                 if let cell = sender as? UICollectionViewCell{
                     if let indexPath: IndexPath = self.collectionView.indexPath(for: cell){
                         controller.index = indexPath.item
@@ -334,6 +330,13 @@ extension PhotoAlbumViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let photosViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "PhotosViewController") as! PhotoViewController
+        photosViewController.title = album.localizedTitle
+        photosViewController.index = indexPath.row
+        self.navigationController?.pushViewController(photosViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

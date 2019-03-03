@@ -22,33 +22,19 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4OX-DN-8tH">
                         <rect key="frame" x="0.0" y="0.0" width="175" height="174"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WhiteCheckmark" translatesAutoresizingMaskIntoConstraints="NO" id="R8h-rG-6g3">
-                        <rect key="frame" x="148" y="147" width="20" height="20"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="Cej-ej-rhx"/>
-                            <constraint firstAttribute="width" constant="20" id="UHf-4y-Nv1"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="4OX-DN-8tH" secondAttribute="trailing" id="Nbh-BI-pde"/>
                 <constraint firstItem="4OX-DN-8tH" firstAttribute="top" secondItem="LJP-Lo-qv2" secondAttribute="top" id="dVk-PL-8Wx"/>
-                <constraint firstAttribute="bottom" secondItem="R8h-rG-6g3" secondAttribute="bottom" constant="7" id="f6y-JT-0H8"/>
                 <constraint firstAttribute="bottom" secondItem="4OX-DN-8tH" secondAttribute="bottom" id="h0p-FO-fIC"/>
-                <constraint firstAttribute="trailing" secondItem="R8h-rG-6g3" secondAttribute="trailing" constant="7" id="rSu-BM-1mA"/>
                 <constraint firstItem="4OX-DN-8tH" firstAttribute="leading" secondItem="LJP-Lo-qv2" secondAttribute="leading" id="xFW-89-D2m"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="bT2-vH-7bI"/>
             <connections>
-                <outlet property="checkmarkImageView" destination="R8h-rG-6g3" id="fLI-GQ-ZGB"/>
                 <outlet property="photoImageView" destination="4OX-DN-8tH" id="T7w-TH-Qps"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="54"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="WhiteCheckmark" width="12" height="9"/>
-    </resources>
 </document>
