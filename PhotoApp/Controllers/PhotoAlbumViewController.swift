@@ -201,9 +201,6 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
         
         return cell!
     }
-    
-    
-    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

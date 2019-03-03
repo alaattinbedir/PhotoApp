@@ -11,21 +11,17 @@ import Photos
 
 class PhotoViewController: UIViewController {
     
+    // MARK: - Vars & Lets
     var assetCollection: PHAssetCollection!
     var photosAsset: PHFetchResult<PHAsset>!
     var index: Int = 0
     
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    // MARK: - Outlets
     @IBOutlet weak var exportButton: UIBarButtonItem!
     @IBOutlet weak var trashButton: UIBarButtonItem!
     @IBOutlet weak var photoImageView: UIImageView!
     
-    @IBAction func cancel(_ sender: Any) {
-        if let navController = self.navigationController {
-            navController.popToRootViewController(animated: true)
-        }
-    }
-    
+    // MARK: - Actions
     @IBAction func exportImage(_ sender: Any) {
         print("export")
     }
