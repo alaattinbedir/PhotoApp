@@ -1,5 +1,5 @@
 //
-//  ViewPhotoViewController.swift
+//  PhotoViewController.swift
 //  PhotoApp
 //
 //  Created by Alaattin Bedir on 2.03.2019.
@@ -88,8 +88,7 @@ class PhotoViewController: UIViewController {
     }
     
     // MARK - Business Logic Methods
-    func displayPhoto(){
-        // Set targetSize of image to iPhone screen size
+    func displayPhoto(){        
         let screenSize: CGSize = UIScreen.main.bounds.size
         let targetSize = CGSize(width: screenSize.width, height: screenSize.height)
         
