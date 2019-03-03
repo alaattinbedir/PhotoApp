@@ -18,9 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YtO-1i-wjz">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YtO-1i-wjz">
                                 <rect key="frame" x="0.0" y="10" width="375" height="647"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pYy-5H-NT2">
                                     <size key="itemSize" width="50" height="50"/>
@@ -41,6 +40,12 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="YtO-1i-wjz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0SH-6l-sQy"/>
+                            <constraint firstAttribute="bottom" secondItem="YtO-1i-wjz" secondAttribute="bottom" constant="10" id="67B-TT-NOR"/>
+                            <constraint firstItem="YtO-1i-wjz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="IJA-fS-TIv"/>
+                            <constraint firstItem="YtO-1i-wjz" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="10" id="Thn-9b-L5l"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <toolbarItems>
@@ -137,14 +142,13 @@
         <!--Albums-->
         <scene sceneID="kF2-Tf-ER1">
             <objects>
-                <viewController id="se7-OK-XlU" customClass="AlbumsViewController" customModule="PhotoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="se7-OK-XlU" customClass="AlbumsViewController" customModule="PhotoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aWL-rV-ykV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G9a-p5-eGQ">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G9a-p5-eGQ">
                                 <rect key="frame" x="0.0" y="116" width="375" height="551"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="o1X-eo-nu7">
                                     <size key="itemSize" width="50" height="50"/>
@@ -165,6 +169,12 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="G9a-p5-eGQ" firstAttribute="trailing" secondItem="a5G-9q-Wix" secondAttribute="trailing" id="6D2-OR-d28"/>
+                            <constraint firstItem="G9a-p5-eGQ" firstAttribute="leading" secondItem="a5G-9q-Wix" secondAttribute="leading" id="LV6-g2-BsI"/>
+                            <constraint firstItem="G9a-p5-eGQ" firstAttribute="bottom" secondItem="a5G-9q-Wix" secondAttribute="bottom" id="t9E-xi-wzP"/>
+                            <constraint firstItem="G9a-p5-eGQ" firstAttribute="top" secondItem="a5G-9q-Wix" secondAttribute="top" id="xDU-YV-71F"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="a5G-9q-Wix"/>
                     </view>
                     <navigationItem key="navigationItem" title="Albums" id="qZh-K3-lYy"/>
