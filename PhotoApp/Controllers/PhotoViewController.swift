@@ -15,6 +15,7 @@ class PhotoViewController: UIViewController {
     var assetCollection: PHAssetCollection!
     var photosAsset: PHFetchResult<PHAsset>!
     var index: Int = 0
+    var image: UIImage?
     
     // MARK: - Outlets
     @IBOutlet weak var exportButton: UIBarButtonItem!
@@ -23,8 +24,12 @@ class PhotoViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func exportImage(_ sender: Any) {
-        print("export")
+        if let image = self.image {
+            let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+            self.present(vc, animated: true)
+        }
     }
+    
     
     @IBAction func trashImage(_ sender: Any) {
         let alert = UIAlertController(title: "Delete Image", message: "Are you sure you want to delete this image?", preferredStyle: .alert)
@@ -37,7 +42,6 @@ class PhotoViewController: UIViewController {
                                             }
                                         },
                                                                                completionHandler: {(success, error)in
-                                                                                NSLog("\nDeleted Image -> %@", (success ? "Success":"Error!"))
                                                                                 alert.dismiss(animated: true, completion: nil)
                                                                                 if(success){
                                                                                     // Move to the main thread to execute
@@ -80,7 +84,8 @@ class PhotoViewController: UIViewController {
     }
     
     // MARK - Business Logic Methods
-    func displayPhoto(){        
+    
+    func displayPhoto(){
         let screenSize: CGSize = UIScreen.main.bounds.size
         let targetSize = CGSize(width: screenSize.width, height: screenSize.height)
         
@@ -88,6 +93,8 @@ class PhotoViewController: UIViewController {
         imageManager.requestImage(for: self.photosAsset[self.index], targetSize: targetSize, contentMode: .aspectFit, options: nil, resultHandler: {
             (result, info)->Void in
             self.photoImageView.image = result
+            // Save image to use later
+            self.image = result
         })
     }
     
