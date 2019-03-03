@@ -11,7 +11,7 @@ import Photos
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
-    // MARK: - Outelts
+    // MARK: - Outlets
     @IBOutlet weak var photoImageView: UIImageView!
     
     // MARK: - Cell lifecycle

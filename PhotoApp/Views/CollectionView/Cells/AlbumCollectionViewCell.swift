@@ -11,7 +11,7 @@ import Photos
 
 class AlbumCollectionViewCell: UICollectionViewCell {
     
-    // MARK: - Outelts
+    // MARK: - Outlets
     @IBOutlet var albumImageView: UIImageView!
     @IBOutlet var albumNameLabel: UILabel!
         

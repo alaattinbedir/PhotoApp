@@ -13,15 +13,15 @@ import ObjectMapper
 
 class MyError: Error {
     
-    var errorCode: String
-    var errorMessage: String
+    var errorCode: String?
+    var errorMessage: String?
     
     init() {
-        self.errorCode = ""
-        self.errorMessage = ""
+        self.errorCode
+        self.errorMessage
     }
     
-    init(errorCode: String, errorMessage: String) {
+    init(errorCode: String?, errorMessage: String?) {
         self.errorCode = errorCode
         self.errorMessage = errorMessage
     }
