@@ -1,9 +1,9 @@
 //
 //  APPhotoCollectionViewCell.swift
-//  CustomGallery
+//  PhotoApp
 //
-//  Created by Pavle Pesic on 7/14/18.
-//  Copyright © 2018 Pavle Pesic. All rights reserved.
+//  Created by Alaattin Bedir on 2.03.2019.
+//  Copyright © 2019 Alaattin Bedir. All rights reserved.
 //
 
 import UIKit
@@ -11,13 +11,12 @@ import Photos
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
-    // MARK: - Outelts
-    
+    // MARK: - Outelts    
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var checkmarkImageView: UIImageView!
     
-    // MARK: - Vars & Lets
     
+    // MARK: - Vars & Lets
     override var isSelected: Bool {
         didSet {
             self.checkmarkImageView.isHidden = isSelected ? false : true
@@ -25,7 +24,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Cell lifecycle
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.checkmarkImageView.roundedCorners()
@@ -33,7 +31,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Public methods
-    
     func setImage(_ asset: PHAsset) {
         self.photoImageView.image = asset.getAssetThumbnail(size: CGSize(width: self.frame.width * 3, height: self.frame.height * 3))
     }

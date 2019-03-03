@@ -27,13 +27,13 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
     private let numberOfCellsPerRow: CGFloat = 4
     var selectedCollection: PHAssetCollection?
     private var photos: PHFetchResult<PHAsset>!
-    private var numbeOfItemsInRow = 3
+    private var numbeOfItemsInRow = 4
     
     
 
     // MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet var noPhotosLabel: UILabel!
+
     
     // MARK: - Actions
     @IBAction func camera(_ sender: Any) {
@@ -106,48 +106,74 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-            let horizontalSpacing = flowLayout.scrollDirection == .vertical ? flowLayout.minimumInteritemSpacing : flowLayout.minimumLineSpacing
-            let cellWidth = (view.frame.width - max(0, numberOfCellsPerRow - 1)*horizontalSpacing)/numberOfCellsPerRow
-            flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
-        }
         
+        self.prepareCollectionView()
+        self.fetchImagesFromGallery(collection: self.selectedCollection)
         
-        //Check if the folder exists, if not, create it
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "title = %@", albumName)
-        let collection:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
+//        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+//            let horizontalSpacing = flowLayout.scrollDirection == .vertical ? flowLayout.minimumInteritemSpacing : flowLayout.minimumLineSpacing
+//            let cellWidth = (view.frame.width - max(0, numberOfCellsPerRow - 1)*horizontalSpacing)/numberOfCellsPerRow
+//            flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
+//        }
+//
+//
+//
+//
+//
+//        //Check if the folder exists, if not, create it
+//        let fetchOptions = PHFetchOptions()
+//        fetchOptions.predicate = NSPredicate(format: "title = %@", albumName)
+//        let collection:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
+//
+//        if let first_Obj:AnyObject = collection.firstObject{
+//            //found the album
+//            self.albumFound = true
+//            self.assetCollection = first_Obj as! PHAssetCollection
+//        }else{
+//            //Album placeholder for the asset collection, used to reference collection in completion handler
+//            var albumPlaceholder:PHObjectPlaceholder!
+//            //create the folder
+//            NSLog("\nFolder \"%@\" does not exist\nCreating now...", albumName)
+//            PHPhotoLibrary.shared().performChanges({
+//                let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: albumName)
+//                albumPlaceholder = request.placeholderForCreatedAssetCollection
+//            },
+//                                                   completionHandler: {(success:Bool, error:Error?) in
+//                                                    if(success){
+//                                                        print("Successfully created folder")
+//                                                        self.albumFound = true
+//                                                        let collection = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumPlaceholder.localIdentifier], options: nil)
+//                                                        self.assetCollection = collection.firstObject!
+//                                                    }else{
+//                                                        print("Error creating folder")
+//                                                        self.albumFound = false
+//                                                    }
+//            })
+//        }
         
-        if let first_Obj:AnyObject = collection.firstObject{
-            //found the album
-            self.albumFound = true
-            self.assetCollection = first_Obj as! PHAssetCollection
-        }else{
-            //Album placeholder for the asset collection, used to reference collection in completion handler
-            var albumPlaceholder:PHObjectPlaceholder!
-            //create the folder
-            NSLog("\nFolder \"%@\" does not exist\nCreating now...", albumName)
-            PHPhotoLibrary.shared().performChanges({
-                let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: albumName)
-                albumPlaceholder = request.placeholderForCreatedAssetCollection
-            },
-                                                   completionHandler: {(success:Bool, error:Error?) in
-                                                    if(success){
-                                                        print("Successfully created folder")
-                                                        self.albumFound = true
-                                                        let collection = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumPlaceholder.localIdentifier], options: nil)
-                                                        self.assetCollection = collection.firstObject!
-                                                    }else{
-                                                        print("Error creating folder")
-                                                        self.albumFound = false
-                                                    }
-            })
-        }
-        
-        self.grabPhotos()
+//        self.grabPhotos()
         
     }
 
+    private func prepareCollectionView() {
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        self.collectionView.register(UINib.init(nibName: "PhotoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PhotoCollectionViewCell")
+    }
+    
+    private func fetchImagesFromGallery(collection: PHAssetCollection?) {
+        DispatchQueue.main.async {
+            let fetchOptions = PHFetchOptions()
+            fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+            if let collection = collection {
+                self.photos = PHAsset.fetchAssets(in: collection, options: fetchOptions)
+            } else {
+                self.photos = PHAsset.fetchAssets(with: fetchOptions)
+            }
+            self.collectionView.reloadData()
+        }
+    }
+    
     fileprivate func loadPhotos() {
         
         SVProgressHUD.show()
@@ -164,9 +190,9 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
         
         if let photoCnt = self.photosAsset?.count{
             if(photoCnt == 0){
-                self.noPhotosLabel.isHidden = false
+//                self.noPhotosLabel.isHidden = false
             }else{
-                self.noPhotosLabel.isHidden = true
+//                self.noPhotosLabel.isHidden = true
             }
         }
         self.collectionView.reloadData()
@@ -238,43 +264,60 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
 // MARK: - Extensions
 // MARK: - UICollectionViewDataSource
 extension PhotoAlbumViewController: UICollectionViewDataSource {
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var count: Int = 0
-        if(self.photosAsset != nil){
-            count = self.photosAsset.count
+        if let photos = photos {
+            return photos.count
         }
-        return count;
+        return 0
     }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as? PhotoCollectionViewCell
+        cell?.setImage(photos.object(at: indexPath.row))
+        
+        return cell!
+    }
+    
+    
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        var count: Int = 0
+//        if(self.photosAsset != nil){
+//            count = self.photosAsset.count
+//        }
+//        return count;
+//    }
+    
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        
+//
 //        let totalCellWidth = 80 * collectionView.numberOfItems(inSection: 0)
 //        let totalSpacingWidth = 10 * (collectionView.numberOfItems(inSection: 0) - 1)
-//        
+//
 //        let leftInset = (collectionView.layer.frame.size.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
 //        let rightInset = leftInset
-//        
+//
 //        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
-//        
+//
 //    }
     
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: PhotoThumbnail = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PhotoThumbnail
-        
-        //Modify the cell
-        let asset: PHAsset = self.photosAsset[indexPath.item]
-        
-        // Create options for retrieving image (Degrades quality if using .Fast)
-        //        let imageOptions = PHImageRequestOptions()
-        //        imageOptions.resizeMode = PHImageRequestOptionsResizeMode.Fast
-        PHImageManager.default().requestImage(for: asset, targetSize: self.assetThumbnailSize, contentMode: .aspectFill, options: nil, resultHandler: {(result, info)in
-            if let image = result {
-                cell.setThumbnailImage(image)
-            }
-        })
-        return cell
-    }
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell: PhotoThumbnail = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PhotoThumbnail
+//
+//        //Modify the cell
+//        let asset: PHAsset = self.photosAsset[indexPath.item]
+//
+//        // Create options for retrieving image (Degrades quality if using .Fast)
+//        //        let imageOptions = PHImageRequestOptions()
+//        //        imageOptions.resizeMode = PHImageRequestOptionsResizeMode.Fast
+//        PHImageManager.default().requestImage(for: asset, targetSize: self.assetThumbnailSize, contentMode: .aspectFill, options: nil, resultHandler: {(result, info)in
+//            if let image = result {
+//                cell.setThumbnailImage(image)
+//            }
+//        })
+//        return cell
+//    }
     
 }
 
