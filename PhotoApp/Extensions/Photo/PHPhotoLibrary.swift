@@ -1,9 +1,9 @@
 //
 //  PHPhotoLibrary.swift
-//  CustomGallery
+//  PhotoApp
 //
-//  Created by Pavle Pesic on 7/14/18.
-//  Copyright © 2018 Pavle Pesic. All rights reserved.
+//  Created by Alaattin Bedir on 2.03.2019.
+//  Copyright © 2019 Alaattin Bedir. All rights reserved.
 //
 
 import PhotosUI
