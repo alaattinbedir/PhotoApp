@@ -28,8 +28,6 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
     var selectedCollection: PHAssetCollection?
     private var photos: PHFetchResult<PHAsset>!
     private var numbeOfItemsInRow = 4
-    
-    
 
     // MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
@@ -62,45 +60,6 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
         picker.allowsEditing = false
         self.present(picker, animated: true, completion: nil)
     }
-    
-    // MARK: - Private methods
-//    private func grabPhotos(){
-//        imageArray = []
-//
-//        DispatchQueue.global(qos: .background).async {
-//            print("This is run on the background queue")
-//            let imgManager=PHImageManager.default()
-//
-//            let requestOptions=PHImageRequestOptions()
-//            requestOptions.isSynchronous=true
-//            requestOptions.deliveryMode = .highQualityFormat
-//
-//            let fetchOptions=PHFetchOptions()
-//            fetchOptions.sortDescriptors=[NSSortDescriptor(key:"creationDate", ascending: false)]
-//
-//            let fetchResult: PHFetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-//            print(fetchResult)
-//            print(fetchResult.count)
-//            if fetchResult.count > 0 {
-//                for i in 0..<fetchResult.count{
-//                    imgManager.requestImage(for: fetchResult.object(at: i) as PHAsset, targetSize: CGSize(width:500, height: 500),contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, error) in
-//
-//                        if let image = image {
-//                            self.imageArray.append(image)
-//                        }
-//                    })
-//                }
-//            } else {
-//                print("You got no photos.")
-//            }
-//            print("imageArray count: \(self.imageArray.count)")
-//
-//            DispatchQueue.main.async {
-//                print("This is run on the main queue, after the previous code in outer block")
-//                self.collectionView.reloadData()
-//            }
-//        }
-//    }
     
     // MARK: - Controller lifecycle
     override func viewDidLoad() {
@@ -147,8 +106,6 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
             })
         }
         
-//        self.grabPhotos()
-        
     }
 
     private func prepareCollectionView() {
@@ -170,35 +127,9 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
         }
     }
     
-//    fileprivate func loadPhotos() {
-//        
-//        SVProgressHUD.show()
-//        
-//        // Get size of the collectionView cell for thumbnail image
-//        if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout{
-//            let cellSize = layout.itemSize
-//            self.assetThumbnailSize = CGSize(width: cellSize.width, height: cellSize.height)
-//        }
-//        
-//        //fetch the photos from collection
-//        self.navigationController?.hidesBarsOnTap = false   //!! Use optional chaining
-//        self.photosAsset = PHAsset.fetchAssets(in: self.assetCollection, options: nil)
-//        
-//        if let photoCnt = self.photosAsset?.count{
-//            if(photoCnt == 0){
-////                self.noPhotosLabel.isHidden = false
-//            }else{
-////                self.noPhotosLabel.isHidden = true
-//            }
-//        }
-//        self.collectionView.reloadData()
-//        SVProgressHUD.dismiss()
-//    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-//        loadPhotos()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -227,11 +158,6 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
             print("No image found")
             return
         }
-        
-        //Implement if allowing user to edit the selected image
-//        guard let editedImage = info[.editedImage] as? UIImage else {
-//            return
-//        }
         
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: {
             PHPhotoLibrary.shared().performChanges({
@@ -277,43 +203,6 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
     }
     
     
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        var count: Int = 0
-//        if(self.photosAsset != nil){
-//            count = self.photosAsset.count
-//        }
-//        return count;
-//    }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//
-//        let totalCellWidth = 80 * collectionView.numberOfItems(inSection: 0)
-//        let totalSpacingWidth = 10 * (collectionView.numberOfItems(inSection: 0) - 1)
-//
-//        let leftInset = (collectionView.layer.frame.size.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
-//        let rightInset = leftInset
-//
-//        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
-//
-//    }
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell: PhotoThumbnail = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PhotoThumbnail
-//
-//        //Modify the cell
-//        let asset: PHAsset = self.photosAsset[indexPath.item]
-//
-//        // Create options for retrieving image (Degrades quality if using .Fast)
-//        //        let imageOptions = PHImageRequestOptions()
-//        //        imageOptions.resizeMode = PHImageRequestOptionsResizeMode.Fast
-//        PHImageManager.default().requestImage(for: asset, targetSize: self.assetThumbnailSize, contentMode: .aspectFill, options: nil, resultHandler: {(result, info)in
-//            if let image = result {
-//                cell.setThumbnailImage(image)
-//            }
-//        })
-//        return cell
-//    }
     
 }
 
