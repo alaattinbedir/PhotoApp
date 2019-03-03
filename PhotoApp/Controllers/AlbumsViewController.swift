@@ -59,7 +59,7 @@ class AlbumsViewController: UIViewController {
     
 }
 
-// MARK: - Exteinsions
+// MARK: - Extensions
 // MARK: - UICollectionViewDataSource
 extension AlbumsViewController: UICollectionViewDataSource {
     
