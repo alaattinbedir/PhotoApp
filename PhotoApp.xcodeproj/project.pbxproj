@@ -14,6 +14,7 @@
 		D81EE22C222BE8390053E07A /* AlbumCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8B63AF2222BDA4500D54F2F /* AlbumCollectionViewCell.xib */; };
 		D81EE22D222BE8B50053E07A /* PhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8B63AF0222BDA4500D54F2F /* PhotoCollectionViewCell.xib */; };
 		D81EE22E222BFC090053E07A /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B63AF1222BDA4500D54F2F /* PhotoCollectionViewCell.swift */; };
+		D81EE230222C0F6C0053E07A /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81EE22F222C0F6C0053E07A /* UIImageView.swift */; };
 		D8B63A94222AB79400D54F2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B63A93222AB79400D54F2F /* AppDelegate.swift */; };
 		D8B63A96222AB79400D54F2F /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B63A95222AB79400D54F2F /* PhotoAlbumViewController.swift */; };
 		D8B63A99222AB79400D54F2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8B63A97222AB79400D54F2F /* Main.storyboard */; };
@@ -62,6 +63,7 @@
 		B94457329A446E2C32148D5D /* Pods_PhotoAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99CB0CDEFB140E7E58CACE7 /* Pods-PhotoAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAppTests.release.xcconfig"; path = "Target Support Files/Pods-PhotoAppTests/Pods-PhotoAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		D81EE22A222BE1EC0053E07A /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
+		D81EE22F222C0F6C0053E07A /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		D8B63A90222AB79400D54F2F /* PhotoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8B63A93222AB79400D54F2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8B63A95222AB79400D54F2F /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				D8B63AE7222BD93B00D54F2F /* UIStoryboard.swift */,
 				D8B63AE6222BD93B00D54F2F /* UIView.swift */,
 				D8B63AE8222BD93B00D54F2F /* UIViewController.swift */,
+				D81EE22F222C0F6C0053E07A /* UIImageView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -551,6 +554,7 @@
 				D8B63A96222AB79400D54F2F /* PhotoAlbumViewController.swift in Sources */,
 				D8B63AE0222BD29300D54F2F /* PHAssetCollection.swift in Sources */,
 				D81EE22B222BE1EC0053E07A /* AlbumCollectionViewCell.swift in Sources */,
+				D81EE230222C0F6C0053E07A /* UIImageView.swift in Sources */,
 				D8B63A94222AB79400D54F2F /* AppDelegate.swift in Sources */,
 				D8B63AF4222BDE1B00D54F2F /* AlertMessage.swift in Sources */,
 				D8B63AE1222BD29300D54F2F /* PHPhotoLibrary.swift in Sources */,
