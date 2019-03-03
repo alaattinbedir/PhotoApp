@@ -12,7 +12,6 @@ import Photos
 extension PHPhotoLibrary {
     
     // MARK: - Public methods
-    
     static func checkAuthorizationStatus(completion: @escaping (_ status: Bool) -> Void) {
         if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
             completion(true)

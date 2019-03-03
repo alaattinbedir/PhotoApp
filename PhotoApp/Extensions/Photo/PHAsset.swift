@@ -12,7 +12,6 @@ import Photos
 extension PHAsset {
     
     // MARK: - Public methods
-    
     func getAssetThumbnail(size: CGSize) -> UIImage {
         let manager = PHImageManager.default()
         let option = PHImageRequestOptions()
