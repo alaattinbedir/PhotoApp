@@ -13,6 +13,7 @@
 		D81EE22B222BE1EC0053E07A /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81EE22A222BE1EC0053E07A /* AlbumCollectionViewCell.swift */; };
 		D81EE22C222BE8390053E07A /* AlbumCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8B63AF2222BDA4500D54F2F /* AlbumCollectionViewCell.xib */; };
 		D81EE22D222BE8B50053E07A /* PhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8B63AF0222BDA4500D54F2F /* PhotoCollectionViewCell.xib */; };
+		D81EE22E222BFC090053E07A /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B63AF1222BDA4500D54F2F /* PhotoCollectionViewCell.swift */; };
 		D8B63A94222AB79400D54F2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B63A93222AB79400D54F2F /* AppDelegate.swift */; };
 		D8B63A96222AB79400D54F2F /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B63A95222AB79400D54F2F /* PhotoAlbumViewController.swift */; };
 		D8B63A99222AB79400D54F2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8B63A97222AB79400D54F2F /* Main.storyboard */; };
@@ -540,6 +541,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D81EE22E222BFC090053E07A /* PhotoCollectionViewCell.swift in Sources */,
 				D8B63AEA222BD93B00D54F2F /* UIStoryboard.swift in Sources */,
 				D8B63AE9222BD93B00D54F2F /* UIView.swift in Sources */,
 				D8B63AEB222BD93B00D54F2F /* UIViewController.swift in Sources */,

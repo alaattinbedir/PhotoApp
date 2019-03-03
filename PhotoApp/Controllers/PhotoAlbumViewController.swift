@@ -13,7 +13,6 @@ import SnapKit
 import SVProgressHUD
 
 let reuseIdentifier = "PhotoCell"
-let albumName = "PhotoApp"
 
 class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -24,6 +23,7 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
     private var assetThumbnailSize:CGSize!
     private var imageArray = [UIImage]()
     var albums: PHAssetCollection = PHAssetCollection()
+    var albumName: String?
     private let numberOfCellsPerRow: CGFloat = 4
     var selectedCollection: PHAssetCollection?
     private var photos: PHFetchResult<PHAsset>!
@@ -110,48 +110,48 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
         self.prepareCollectionView()
         self.fetchImagesFromGallery(collection: self.selectedCollection)
         
-//        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-//            let horizontalSpacing = flowLayout.scrollDirection == .vertical ? flowLayout.minimumInteritemSpacing : flowLayout.minimumLineSpacing
-//            let cellWidth = (view.frame.width - max(0, numberOfCellsPerRow - 1)*horizontalSpacing)/numberOfCellsPerRow
-//            flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
-//        }
-//
-//
-//
-//
-//
-//        //Check if the folder exists, if not, create it
-//        let fetchOptions = PHFetchOptions()
-//        fetchOptions.predicate = NSPredicate(format: "title = %@", albumName)
-//        let collection:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
-//
-//        if let first_Obj:AnyObject = collection.firstObject{
-//            //found the album
-//            self.albumFound = true
-//            self.assetCollection = first_Obj as! PHAssetCollection
-//        }else{
-//            //Album placeholder for the asset collection, used to reference collection in completion handler
-//            var albumPlaceholder:PHObjectPlaceholder!
-//            //create the folder
-//            NSLog("\nFolder \"%@\" does not exist\nCreating now...", albumName)
-//            PHPhotoLibrary.shared().performChanges({
-//                let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: albumName)
-//                albumPlaceholder = request.placeholderForCreatedAssetCollection
-//            },
-//                                                   completionHandler: {(success:Bool, error:Error?) in
-//                                                    if(success){
-//                                                        print("Successfully created folder")
-//                                                        self.albumFound = true
-//                                                        let collection = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumPlaceholder.localIdentifier], options: nil)
-//                                                        self.assetCollection = collection.firstObject!
-//                                                    }else{
-//                                                        print("Error creating folder")
-//                                                        self.albumFound = false
-//                                                    }
-//            })
-//        }
+        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            let horizontalSpacing = flowLayout.scrollDirection == .vertical ? flowLayout.minimumInteritemSpacing : flowLayout.minimumLineSpacing
+            let cellWidth = (view.frame.width - max(0, numberOfCellsPerRow - 1)*horizontalSpacing)/numberOfCellsPerRow
+            flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
+        }
+
+
+
+
+
+        //Check if the folder exists, if not, create it
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.predicate = NSPredicate(format: "title = %@", albumName ?? "PhotoApp")
+        let collection:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
+
+        if let first_Obj:AnyObject = collection.firstObject{
+            //found the album
+            self.albumFound = true
+            self.assetCollection = first_Obj as! PHAssetCollection
+        }else{
+            //Album placeholder for the asset collection, used to reference collection in completion handler
+            var albumPlaceholder:PHObjectPlaceholder!
+            //create the folder
+            NSLog("\nFolder \"%@\" does not exist\nCreating now...", albumName ?? "PhptpApp")
+            PHPhotoLibrary.shared().performChanges({
+                let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: self.albumName ?? "PhotoApp")
+                albumPlaceholder = request.placeholderForCreatedAssetCollection
+            },
+                                                   completionHandler: {(success:Bool, error:Error?) in
+                                                    if(success){
+                                                        print("Successfully created folder")
+                                                        self.albumFound = true
+                                                        let collection = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumPlaceholder.localIdentifier], options: nil)
+                                                        self.assetCollection = collection.firstObject!
+                                                    }else{
+                                                        print("Error creating folder")
+                                                        self.albumFound = false
+                                                    }
+            })
+        }
         
-//        self.grabPhotos()
+        self.grabPhotos()
         
     }
 
@@ -202,7 +202,7 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-//        loadPhotos()
+        loadPhotos()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -11,10 +11,9 @@ import Photos
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
-    // MARK: - Outelts    
+    // MARK: - Outelts
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var checkmarkImageView: UIImageView!
-    
     
     // MARK: - Vars & Lets
     override var isSelected: Bool {
