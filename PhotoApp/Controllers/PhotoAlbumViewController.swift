@@ -23,6 +23,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     var photosAsset: PHFetchResult<PHAsset>!
     var assetThumbnailSize:CGSize!
     var imageArray = [UIImage]()
+    let numberOfCellsPerRow: CGFloat = 4
 
     //MARK: IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
@@ -99,6 +100,13 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            let horizontalSpacing = flowLayout.scrollDirection == .vertical ? flowLayout.minimumInteritemSpacing : flowLayout.minimumLineSpacing
+            let cellWidth = (view.frame.width - max(0, numberOfCellsPerRow - 1)*horizontalSpacing)/numberOfCellsPerRow
+            flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
+        }
+        
+        
         //Check if the folder exists, if not, create it
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "title = %@", albumName)
@@ -145,7 +153,6 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         self.navigationController?.hidesBarsOnTap = false   //!! Use optional chaining
         self.photosAsset = PHAsset.fetchAssets(in: self.assetCollection, options: nil)
         
-        
         if let photoCnt = self.photosAsset?.count{
             if(photoCnt == 0){
                 self.noPhotosLabel.isHidden = false
@@ -186,6 +193,18 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         return count;
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        let totalCellWidth = 80 * collectionView.numberOfItems(inSection: 0)
+        let totalSpacingWidth = 10 * (collectionView.numberOfItems(inSection: 0) - 1)
+        
+        let leftInset = (collectionView.layer.frame.size.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
+        let rightInset = leftInset
+        
+        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: PhotoThumbnail = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PhotoThumbnail
         
@@ -211,30 +230,35 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         return 1
     }
     
-    //MARK: UICollectionView Delegate Methods
-    internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]){
-        NSLog("in didFinishPickingMediaWithInfo")
-        if let image: UIImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            
-            //Implement if allowing user to edit the selected image
-            //let editedImage = info.objectForKey("UIImagePickerControllerEditedImage") as UIImage
-            
-            DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: {
-                PHPhotoLibrary.shared().performChanges({
-                    let createAssetRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
-                    let assetPlaceholder = createAssetRequest.placeholderForCreatedAsset
-                    if let albumChangeRequest = PHAssetCollectionChangeRequest(for: self.assetCollection, assets: self.photosAsset) {
-                        albumChangeRequest.addAssets([assetPlaceholder!] as NSArray)
-                    }
-                }, completionHandler: {(success, error)in
-                    DispatchQueue.main.async(execute: {
-                        NSLog("Adding Image to Library -> %@", (success ? "Sucess":"Error!"))
-                        picker.dismiss(animated: true, completion: nil)
-                    })
-                })
-                
-            })
+    //MARK: UIImagePicker Delegate Methods
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let image = info[.originalImage] as? UIImage else {
+            print("No image found")
+            return
         }
+        
+        //Implement if allowing user to edit the selected image
+//        guard let editedImage = info[.editedImage] as? UIImage else {
+//            return
+//        }
+        
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: {
+            PHPhotoLibrary.shared().performChanges({
+                let createAssetRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
+                let assetPlaceholder = createAssetRequest.placeholderForCreatedAsset
+                if let albumChangeRequest = PHAssetCollectionChangeRequest(for: self.assetCollection, assets: self.photosAsset) {
+                    albumChangeRequest.addAssets([assetPlaceholder!] as NSArray)
+                }
+            }, completionHandler: {(success, error)in
+                DispatchQueue.main.async(execute: {
+                    NSLog("Adding Image to Library -> %@", (success ? "Sucess":"Error!"))
+                    picker.dismiss(animated: true, completion: nil)
+                })
+            })
+            
+        })
+        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
