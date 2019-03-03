@@ -43,16 +43,8 @@ class PhotoViewController: UIViewController {
                                                                                     // Move to the main thread to execute
                                                                                     DispatchQueue.main.async(execute: {
                                                                                         self.photosAsset = PHAsset.fetchAssets(in: self.assetCollection, options: nil)
-                                                                                        if(self.photosAsset.count == 0){
-                                                                                            print("No Images Left!!")
-                                                                                            if let navController = self.navigationController {
-                                                                                                navController.popToRootViewController(animated: true)
-                                                                                            }
-                                                                                        }else{
-                                                                                            if(self.index >= self.photosAsset.count){
-                                                                                                self.index = self.photosAsset.count - 1
-                                                                                            }
-                                                                                            self.displayPhoto()
+                                                                                        if let navController = self.navigationController {
+                                                                                            navController.popToRootViewController(animated: true)
                                                                                         }
                                                                                     })
                                                                                 }else{

@@ -18,7 +18,9 @@ extension PHAsset {
         var thumbnail = UIImage()
         option.isSynchronous = true
         manager.requestImage(for: self, targetSize: size, contentMode: .aspectFill, options: option, resultHandler: {(result, info)->Void in
-            thumbnail = result!
+            if let result = result {
+                thumbnail = result
+            }
         })
         
         return thumbnail
@@ -29,7 +31,10 @@ extension PHAsset {
         let option = PHImageRequestOptions()
         var image = UIImage()
         manager.requestImage(for: self, targetSize: PHImageManagerMaximumSize, contentMode: .default, options: option, resultHandler: {(result, info)->Void in
-            image = result!
+            
+            if let result = result {
+                image = result
+            }
             
             complition(image)
         })
@@ -44,7 +49,10 @@ extension PHAsset {
         
         if (self.mediaType == PHAssetMediaType.image) {
             PHImageManager.default().requestImage(for: self, targetSize: PHImageManagerMaximumSize, contentMode: .default, options: requestOptions, resultHandler: { (pickedImage, info) in
-                image = pickedImage!
+                if let pickedImage = pickedImage {
+                    image = pickedImage
+                }
+                
             })
         }
         return image
