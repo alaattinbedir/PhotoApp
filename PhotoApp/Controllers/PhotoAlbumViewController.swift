@@ -187,7 +187,6 @@ class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegat
 // MARK: - UICollectionViewDataSource
 extension PhotoAlbumViewController: UICollectionViewDataSource {
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let photos = photos {
             return photos.count
