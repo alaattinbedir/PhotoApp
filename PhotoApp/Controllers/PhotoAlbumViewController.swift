@@ -18,13 +18,18 @@ let albumName = "PhotoApp"
 class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: - Vars & Lets
-    var albumFound : Bool = false
-    var assetCollection: PHAssetCollection = PHAssetCollection()
-    var photosAsset: PHFetchResult<PHAsset>!
-    var assetThumbnailSize:CGSize!
-    var imageArray = [UIImage]()
+    private var albumFound : Bool = false
+    private var assetCollection: PHAssetCollection = PHAssetCollection()
+    private var photosAsset: PHFetchResult<PHAsset>!
+    private var assetThumbnailSize:CGSize!
+    private var imageArray = [UIImage]()
     var albums: PHAssetCollection = PHAssetCollection()
-    let numberOfCellsPerRow: CGFloat = 4
+    private let numberOfCellsPerRow: CGFloat = 4
+    var selectedCollection: PHAssetCollection?
+    private var photos: PHFetchResult<PHAsset>!
+    private var numbeOfItemsInRow = 3
+    
+    
 
     // MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
@@ -241,17 +246,17 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
         return count;
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
-        let totalCellWidth = 80 * collectionView.numberOfItems(inSection: 0)
-        let totalSpacingWidth = 10 * (collectionView.numberOfItems(inSection: 0) - 1)
-        
-        let leftInset = (collectionView.layer.frame.size.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
-        let rightInset = leftInset
-        
-        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
-        
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        
+//        let totalCellWidth = 80 * collectionView.numberOfItems(inSection: 0)
+//        let totalSpacingWidth = 10 * (collectionView.numberOfItems(inSection: 0) - 1)
+//        
+//        let leftInset = (collectionView.layer.frame.size.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
+//        let rightInset = leftInset
+//        
+//        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
+//        
+//    }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

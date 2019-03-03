@@ -97,10 +97,10 @@ extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let photosViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "PhotosViewController") as! PhotosViewController
+        let photoAlbumViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "PhotoAlbumViewController") as! PhotoAlbumViewController
         let album = albums[indexPath.row]
-        photosViewController.title = album.localizedTitle
-        photosViewController.selectedCollection = album
-        self.navigationController?.pushViewController(photosViewController, animated: true)
+        photoAlbumViewController.title = album.localizedTitle
+        photoAlbumViewController.selectedCollection = album
+        self.navigationController?.pushViewController(photoAlbumViewController, animated: true)
     }
 }
