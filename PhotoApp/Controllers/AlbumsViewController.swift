@@ -15,7 +15,7 @@ class AlbumsViewController: UIViewController {
     private var albums: [PHAssetCollection] = []
     private var numbeOfItemsInRow = 3
     
-    // MARK: - Outelts   
+    // MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: - Controller lifecycle
