@@ -17,15 +17,11 @@ let reuseIdentifier = "PhotoCell"
 class PhotoAlbumViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: - Vars & Lets
+    public var albums: PHAssetCollection = PHAssetCollection()
+    public var albumName: String?
+    public var selectedCollection: PHAssetCollection?
     private var albumFound : Bool = false
-//    private var assetCollection: PHAssetCollection = PHAssetCollection()
-//    private var photosAsset: PHFetchResult<PHAsset>!
     private var assetThumbnailSize:CGSize!
-//    private var imageArray = [UIImage]()
-    var albums: PHAssetCollection = PHAssetCollection()
-    var albumName: String?
-//    private let numberOfCellsPerRow: CGFloat = 4
-    var selectedCollection: PHAssetCollection?
     private var photos: PHFetchResult<PHAsset>!
     private var numbeOfItemsInRow = 4
 
